@@ -12,19 +12,16 @@ static constexpr struct option longopts[] = {
     { 0,                    0,       0,  0  },
 };
 
-static void usage()
-{
+static void usage() noexcept {
     std::printf(
         "Usage: wikilead \n"
         " -j, --japanese Access to japanese version.\n"
-        "\n"
     );        
 
     return; 
 }
 
-static int parseCommandLine(int argc, char** argv, Param& param)
-{
+static int parseCommandLine(int argc, char** argv, Param& param) noexcept {
     int opt = 0, longIndex = 0;
     while ((opt = getopt_long(argc, argv, ":j", longopts, &longIndex)) != -1) {
         switch (opt) {
@@ -46,8 +43,7 @@ static int parseCommandLine(int argc, char** argv, Param& param)
     return 0;
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     Param param;
     if (parseCommandLine(argc, argv, param) != 0) {
         return -1;

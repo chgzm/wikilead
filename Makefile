@@ -1,6 +1,7 @@
 PROGRAM := wikilead
 OBJS := Main.o WikiParser.o
 CXX := g++
+INCLUDES := -I./include
 FLGS := -std=c++14 
 CXXFLAGS := -Wall -O2
 

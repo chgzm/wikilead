@@ -1,6 +1,6 @@
 #include "WikiParser.h"
 
-#include <rapidxml/rapidxml.hpp>
+#include <rapidxml.hpp>
 #include <curl/curl.h>
 #include <cstdio>
 #include <cstring>
@@ -12,24 +12,14 @@
 
 #include <regex>
 
-WikiParser::WikiParser()
-{
-}
-
-WikiParser::~WikiParser()
-{
-}
-
-static std::size_t callback(char* ptr, std::size_t size, std::size_t nmemb, std::string* contents)
-{
+static std::size_t callback(char* ptr, std::size_t size, std::size_t nmemb, std::string* contents) noexcept {
     const std::size_t realSize = size * nmemb;
     contents->append(ptr, realSize);
 
     return realSize;
 }
 
-int WikiParser::parse(const Param& param)
-{
+int WikiParser::parse(const Param& param) noexcept {
     std::string url;
     switch (param.lang) {
     case Lang::EN: { 
@@ -106,8 +96,7 @@ int WikiParser::parse(const Param& param)
     }
 }
 
-std::string WikiParser::getURLEncoding(const std::string& str)
-{
+std::string WikiParser::getURLEncoding(const std::string& str) noexcept {
     std::stringstream ss;
     ss << std::hex;
 
@@ -118,8 +107,7 @@ std::string WikiParser::getURLEncoding(const std::string& str)
     return ss.str();
 }
 
-std::vector<std::string> WikiParser::getLines(const std::string& str)
-{
+std::vector<std::string> WikiParser::getLines(const std::string& str) noexcept {
     std::stringstream ss(str);
 
     std::string line;
@@ -131,8 +119,7 @@ std::vector<std::string> WikiParser::getLines(const std::string& str)
     return ret;
 }
 
-std::string WikiParser::removeMarkups(const std::string& str)
-{
+std::string WikiParser::removeMarkups(const std::string& str) noexcept {
     const std::string str1 = std::move(std::regex_replace(str,  this->italicBold,    "$1"));
     const std::string str2 = std::move(std::regex_replace(str1, this->linkToSection, "$3"));
     const std::string str3 = std::move(std::regex_replace(str2, this->linkWithText,  "$2"));

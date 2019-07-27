@@ -9,17 +9,17 @@
 
 class WikiParser {
 public:
-    WikiParser();
-    ~WikiParser();
+    WikiParser()  = default;
+    ~WikiParser() = default;
 
-    int parse(const Param& param);
+    int parse(const Param& param) noexcept;
 
 private:
-    std::vector<std::string> getLines(const std::string& str);
-    std::string removeMarkups(const std::string& str);
-    std::string getURLEncoding(const std::string& str);
+    std::vector<std::string> getLines(const std::string& str) noexcept;
+    std::string removeMarkups(const std::string& str) noexcept;
+    std::string getURLEncoding(const std::string& str) noexcept;
 
-    const std::string enBaseURL = 
+    static constexpr const char* enBaseURL = 
         "https://en.wikipedia.org/w/api.php"
         "?action=query"
         "&prop=revisions"
@@ -28,7 +28,7 @@ private:
         "&format=xml"
         "&titles=";
 
-    const std::string jpBaseURL = 
+    static constexpr const char* jpBaseURL = 
         "https://ja.wikipedia.org/w/api.php"
         "?action=query"
         "&prop=revisions"
